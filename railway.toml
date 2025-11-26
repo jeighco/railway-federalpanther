@@ -1,7 +1,25 @@
 [build]
 builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
 
 [deploy]
 numReplicas = 1
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
+healthcheckPath = "/"
+healthcheckTimeout = 300
+
+[variables]
+# Database connection - Use Railway's MySQL internal hostname
+# This must match your MySQL service name in Railway
+WORDPRESS_DB_HOST = "mysql-xcha.railway.internal"
+
+# These will be populated from Railway's MySQL service when linked
+# If not automatically available, set them in Railway dashboard as:
+# WORDPRESS_DB_NAME = ${{MySQL-XcHa.MYSQL_DATABASE}}
+# WORDPRESS_DB_USER = ${{MySQL-XcHa.MYSQL_USER}}
+# WORDPRESS_DB_PASSWORD = ${{MySQL-XcHa.MYSQL_PASSWORD}}
+
+# WordPress configuration
+WORDPRESS_TABLE_PREFIX = "wp_"
+WORDPRESS_DEBUG = "false"
