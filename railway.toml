@@ -9,17 +9,16 @@ restartPolicyMaxRetries = 10
 healthcheckPath = "/"
 healthcheckTimeout = 300
 
-[variables]
-# Database connection - Use Railway's MySQL internal hostname
-# This must match your MySQL service name in Railway
-WORDPRESS_DB_HOST = "mysql-xcha.railway.internal"
-
-# These will be populated from Railway's MySQL service when linked
-# If not automatically available, set them in Railway dashboard as:
-# WORDPRESS_DB_NAME = ${{MySQL-XcHa.MYSQL_DATABASE}}
-# WORDPRESS_DB_USER = ${{MySQL-XcHa.MYSQL_USER}}
-# WORDPRESS_DB_PASSWORD = ${{MySQL-XcHa.MYSQL_PASSWORD}}
-
-# WordPress configuration
-WORDPRESS_TABLE_PREFIX = "wp_"
-WORDPRESS_DEBUG = "false"
+# IMPORTANT: You must set these variables in Railway Dashboard!
+# Go to your WordPress service > Variables tab and add:
+#
+# Option 1 (Recommended): Reference MySQL service variables directly
+#   MYSQL_URL = ${{MySQL-XcHa.MYSQL_URL}}
+#
+# Option 2: Set individual variables
+#   WORDPRESS_DB_HOST = ${{MySQL-XcHa.MYSQLHOST}}:${{MySQL-XcHa.MYSQLPORT}}
+#   WORDPRESS_DB_NAME = ${{MySQL-XcHa.MYSQLDATABASE}}
+#   WORDPRESS_DB_USER = ${{MySQL-XcHa.MYSQLUSER}}
+#   WORDPRESS_DB_PASSWORD = ${{MySQL-XcHa.MYSQLPASSWORD}}
+#
+# The entrypoint script will auto-detect and use whichever is available.
